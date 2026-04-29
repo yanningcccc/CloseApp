@@ -180,3 +180,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+Data_processing/.vscode/
+
+Data_processing/data/
+
