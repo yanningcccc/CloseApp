@@ -1,6 +1,22 @@
+from pathlib import Path
 import sys
-sys.path.append('./')
 import os
+
+DATA_PROCESSING_ROOT = Path(__file__).resolve().parent
+PROJECT_ROOT = DATA_PROCESSING_ROOT.parent
+SAM2_ROOT = DATA_PROCESSING_ROOT / "samurai" / "sam2"
+
+for path in (PROJECT_ROOT, SAM2_ROOT, DATA_PROCESSING_ROOT):
+    path_str = str(path)
+    if path_str in sys.path:
+        sys.path.remove(path_str)
+# insert the paths at the beginning of sys.path
+sys.path.insert(0, str(DATA_PROCESSING_ROOT))
+sys.path.insert(1, str(SAM2_ROOT))
+sys.path.insert(2, str(PROJECT_ROOT))
+
+os.chdir(DATA_PROCESSING_ROOT)
+os.environ["PYOPENGL_PLATFORM"] = "egl" #osmesa egl
 import cv2
 import numpy as np
 import torch
@@ -17,8 +33,6 @@ from tqdm import tqdm
 from cliff.cliff_core import CLIFF_Predictor
 from vitpose.vitpose_core import ViTPose_Predictor
 from scorehmr.scorehmr import ScoreHMR
-
-os.environ["PYOPENGL_PLATFORM"] = "egl" #osmesa egl
 
 viz = False
 root = 'data/images'
